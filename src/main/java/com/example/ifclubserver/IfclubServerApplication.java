@@ -1,0 +1,13 @@
+package com.example.ifclubserver;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class IfclubServerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(IfclubServerApplication.class, args);
+    }
+
+}
