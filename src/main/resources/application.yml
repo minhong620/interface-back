@@ -1,0 +1,22 @@
+spring:
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    open-in-view: false
+
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+  data:
+  datasource:
+    url: jdbc:mariadb://220.85.169.165:3306/interface_club
+    username: chan4760
+    password: Tjtocks178@
+    driver-class-name: org.mariadb.jdbc.Driver
