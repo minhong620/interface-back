@@ -39,9 +39,15 @@ public class Member {
         this.email = email;
     }
 
-    public void update(String name, String phone, String email) {
+    public void updateName(String name) {
         this.name = name;
+    }
+
+    public void updatePhone(String phone) {
         this.phone = phone;
+    }
+
+    public void updateEmail(String email) {
         this.email = email;
     }
 }
