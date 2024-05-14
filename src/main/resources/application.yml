@@ -17,3 +17,9 @@ spring:
 mvc:
   path-match:
     matching-strategy: ant_path_matcher
+
+springdoc:
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /docs/swagger
