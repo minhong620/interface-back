@@ -1,8 +1,10 @@
 package com.example.ifclubserver.member.presentation;
 
 import com.example.ifclubserver.member.application.impl.MemberServiceImpl;
-import com.example.ifclubserver.member.domain.dto.MemberCreateForm;
-import com.example.ifclubserver.member.domain.dto.MemberUpdateForm;
+import com.example.ifclubserver.member.domain.dto.MemberDto;
+import com.example.ifclubserver.member.domain.dto.request.CreateMemberRequest;
+import com.example.ifclubserver.member.domain.dto.request.MemberUpdateRequest;
+import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import com.example.ifclubserver.member.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,25 +18,25 @@ public class MemberController {
 
 
     @PostMapping("/members")
-    public ResponseEntity<Member> create(MemberCreateForm form) {
+    public ResponseEntity<CreateMemberResponse> create(CreateMemberRequest form) {
 
         // 멤버 저장 로직 호출
-        Member savedMember = memberServiceImpl.createMember(form);
+        CreateMemberResponse createMemberResponse = memberServiceImpl.createMember(form);
 
-        return ResponseEntity.ok(savedMember);
+        return ResponseEntity.ok(createMemberResponse);
     }
 
     @GetMapping("/members/{id}")
-    public ResponseEntity<Member> getMember(
+    public ResponseEntity<MemberDto> getMember(
             @PathVariable("id") Long id
     ) {
-        Member member = memberServiceImpl.getMember(id);
+        MemberDto memberDto = memberServiceImpl.getMember(id);
 
-        return ResponseEntity.ok(member);
+        return ResponseEntity.ok(memberDto);
     }
 
     @DeleteMapping("/members/{id}")
-    public ResponseEntity<Member> deleteMember(@PathVariable long id) {
+    public ResponseEntity<Void> deleteMember(@PathVariable long id) {
         memberServiceImpl.deleteMember(id);
 
         return ResponseEntity.ok()
@@ -42,7 +44,7 @@ public class MemberController {
     }
 
     @PutMapping("/members/{id}")
-    public ResponseEntity<Member> updateMember(@PathVariable long id, @RequestBody MemberUpdateForm memberUpdate) {
+    public ResponseEntity<MemberDto> updateMember(@PathVariable long id, @RequestBody MemberUpdateRequest memberUpdate) {
 
         return ResponseEntity.ok()
                 .body(memberServiceImpl.updateMember(id, memberUpdate));

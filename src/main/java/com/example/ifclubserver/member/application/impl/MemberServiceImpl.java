@@ -1,8 +1,10 @@
 package com.example.ifclubserver.member.application.impl;
 
-import com.example.ifclubserver.member.domain.dto.MemberCreateForm;
-import com.example.ifclubserver.member.domain.dto.MemberResponseForm;
-import com.example.ifclubserver.member.domain.dto.MemberUpdateForm;
+import com.example.ifclubserver.member.application.MemberService;
+import com.example.ifclubserver.member.domain.dto.MemberDto;
+import com.example.ifclubserver.member.domain.dto.request.CreateMemberRequest;
+import com.example.ifclubserver.member.domain.dto.request.MemberUpdateRequest;
+import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import com.example.ifclubserver.member.domain.entity.Member;
 import com.example.ifclubserver.member.domain.repository.MemberRepository;
 
@@ -19,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
     final private MemberRepository memberRepository;
 
     @Override
-    public Member createMember(MemberCreateForm form) {
+    public CreateMemberResponse createMember(CreateMemberRequest form) {
         // MemberCreateRequest 값 검증
         // TODO: 안함
 
@@ -31,13 +33,11 @@ public class MemberServiceImpl implements MemberService {
                 .build();
 
         // 생성한 Member DB 저장
-        Member savedMember = memberRepository.save(createdMember);
-
-        return savedMember;
+        return CreateMemberResponse.from(memberRepository.save(createdMember));
     }
 
     @Override
-    public Member getMember(Long id) {
+    public MemberDto getMember(Long id) {
         // DB에서 Member 가져오기
 //    Member member = memberRepository.findById(id)
 //        .orElseThrow(() -> CustomError(ErrorCode.MEMBER_NOT_FOUND);
@@ -51,22 +51,22 @@ public class MemberServiceImpl implements MemberService {
         }
 
         // Optional인 Member를 Member로 바꾸는거
-        Member member = optionalMember.get();
-
-        return member;
+        return MemberDto.from(optionalMember.get());
     }
 
-    public void deleteMember(long id) {
+    public void deleteMember(Long id) {
         memberRepository.deleteById(id);
     }
 
     @Transactional
-    public Member updateMember(long id, MemberUpdateForm memberUpdate) {
+    public MemberDto updateMember(Long id, MemberUpdateRequest request) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
-        member.update(memberUpdate.getName(), memberUpdate.getPhone(), memberUpdate.getEmail());
+        member.updateName(request.getName());
+        member.updatePhone(request.getPhone());
+        member.updateEmail(request.getEmail());
 
-        return member;
+        return MemberDto.from(memberRepository.save(member));
     }
 }
