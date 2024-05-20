@@ -40,8 +40,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/if-club-back:cache
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back-container:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/if-club-back-container:cache
           cache-to: type=inline
 
   deploy:
@@ -58,10 +58,10 @@ jobs:
           script: |
             export PATH=$PATH:/usr/local/bin
             export PW=${{ secrets.SERVER_PASSWORD }}
-            echo $PW | sudo -S docker pull ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back:latest
-            echo $PW | sudo -S docker stop if-club-container || true
-            echo $PW | sudo -S docker rm if-club-container || true
-            echo $PW | sudo -S docker run -d -p 8084:8080 --name if-club-container \
+            echo $PW | sudo -S docker pull ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back-container:latest
+            echo $PW | sudo -S docker stop if-club-back || true
+            echo $PW | sudo -S docker rm if-club-back || true
+            echo $PW | sudo -S docker run -d -p 8084:8080 --name if-club-back \
               -e DB_HOST=${{ secrets.DB_HOST }} \
               -e DB_NAME=${{ secrets.DB_NAME }} \
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
