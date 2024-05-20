@@ -61,7 +61,7 @@ jobs:
             echo $PW | sudo -S docker pull ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back:latest
             echo $PW | sudo -S docker stop if-club-container || true
             echo $PW | sudo -S docker rm if-club-container || true
-            echo $PW | sudo -S docker run -d -p 8083:8080 --name if-club-container \
+            echo $PW | sudo -S docker run -d -p 8084:8080 --name if-club-container \
               -e DB_HOST=${{ secrets.DB_HOST }} \
               -e DB_NAME=${{ secrets.DB_NAME }} \
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
