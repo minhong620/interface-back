@@ -10,12 +10,10 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
-
 @OpenAPIDefinition(
-    info = @Info(title = "Interface Club Management",
-        description = "인터페이스 소모임 관리 시스템",
-        version = "0.1v"))
+        info = @Info(title = "Interface Club Management",
+                description = "인터페이스 소모임 관리 시스템",
+                version = "0.1v"))
 @Configuration
 public class SwaggerConfig {
     @Bean
