@@ -1,30 +1,40 @@
 package com.example.ifclubserver.member.domain.entity;
 
+import com.example.ifclubserver.member.domain.entity.constants.MemberStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
+@ToString(exclude = "password")
 @Entity
 @Setter
+@Builder
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    private String password;
 
     @Column(name = "title", nullable = false, unique = true)
     private String phone;
@@ -32,11 +42,14 @@ public class Member {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Builder
-    public Member(String name, String phone, String email) {
+    @Enumerated(EnumType.STRING)
+    private MemberStatus memberStatus;
+
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    public void updateName(String name) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
     }
 
     public void updateName(String name) {
