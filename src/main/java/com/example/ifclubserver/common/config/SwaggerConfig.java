@@ -10,10 +10,12 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+
 @OpenAPIDefinition(
-        info = @Info(title = "Interface Club Management",
-                description = "인터페이스 소모임 관리 시스템",
-                version = "0.1v"))
+    info = @Info(title = "Interface Club Management",
+        description = "인터페이스 소모임 관리 시스템",
+        version = "0.1v"))
 @Configuration
 public class SwaggerConfig {
     @Bean
@@ -28,12 +30,12 @@ public class SwaggerConfig {
         SecurityRequirement securityRequirement = new SecurityRequirement()
             .addList("Bearer Token");
 
-        Server server1 = new Server().url("http://220.85.169.165:8084").description("Generated server url");
-        Server server2 = new Server().url("http://localhost:8080").description("Local server");
+        Server ProductionServer = new Server().url("http://220.85.169.165:8084").description("Production Server");
+        Server LocalServer = new Server().url("http://localhost:8080").description("Local Server");
 
         return new OpenAPI()
             .components(new Components().addSecuritySchemes("Bearer Token", apiKey))
             .addSecurityItem(securityRequirement)
-            .servers(Arrays.asList(server1, server2));
+            .servers(Arrays.asList(ProductionServer, LocalServer));
     }
 }
