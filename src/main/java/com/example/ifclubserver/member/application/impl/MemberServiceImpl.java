@@ -10,6 +10,8 @@ import com.example.ifclubserver.member.domain.repository.MemberRepository;
 
 import java.util.Optional;
 
+import com.example.ifclubserver.member.exception.MemberErrorType;
+import com.example.ifclubserver.member.exception.MemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,8 +41,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDto getMember(Long id) {
         // DB에서 Member 가져오기
-//    Member member = memberRepository.findById(id)
-//        .orElseThrow(() -> CustomError(ErrorCode.MEMBER_NOT_FOUND);
+    Member member = memberRepository.findById(id)
+        .orElseThrow(() -> new MemberException(MemberErrorType.MEMBER_NOT_FOUND));
 
         // 멤버 가져오기 (Optional)
         Optional<Member> optionalMember = memberRepository.findById(id);
