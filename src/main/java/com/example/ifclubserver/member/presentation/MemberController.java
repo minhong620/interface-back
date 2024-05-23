@@ -22,7 +22,7 @@ public class MemberController {
     @PostMapping("/members")
     public ResponseEntity<CreateMemberResponse> create(CreateMemberRequest form, HttpServletResponse httpServletResponse) {
         // CORS 허용 헤더 추가
-        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3032");
+        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET, POST, PUT, DELETE, OPTIONS");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
@@ -38,7 +38,7 @@ public class MemberController {
             @PathVariable("id") Long id , HttpServletResponse httpServletResponse
     ) {
         // CORS 허용 헤더 추가
-        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3032");
+        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET, POST, PUT, DELETE, OPTIONS");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
@@ -50,7 +50,7 @@ public class MemberController {
     @DeleteMapping("/members/{id}")
     public ResponseEntity<Void> deleteMember(@PathVariable long id, HttpServletResponse httpServletResponse) {
         // CORS 허용 헤더 추가
-        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3032");
+        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET, POST, PUT, DELETE, OPTIONS");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
@@ -63,7 +63,7 @@ public class MemberController {
     @PutMapping("/members/{id}")
     public ResponseEntity<MemberDto> updateMember(@PathVariable long id, @RequestBody MemberUpdateRequest memberUpdate, HttpServletResponse httpServletResponse) {
         // CORS 허용 헤더 추가
-        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3032");
+        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET, POST, PUT, DELETE, OPTIONS");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
