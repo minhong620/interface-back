@@ -3,7 +3,7 @@ package com.example.ifclubserver.member.application.impl;
 import com.example.ifclubserver.member.application.MemberService;
 import com.example.ifclubserver.member.domain.dto.MemberDto;
 import com.example.ifclubserver.member.domain.dto.request.CreateMemberRequest;
-import com.example.ifclubserver.member.domain.dto.request.MemberUpdateRequest;
+import com.example.ifclubserver.member.domain.dto.request.UpdateMemberRequest;
 import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import com.example.ifclubserver.member.domain.entity.Member;
 import com.example.ifclubserver.member.domain.entity.constants.MemberStatus;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,20 +25,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public CreateMemberResponse createMember(CreateMemberRequest form) {
-        // MemberCreateRequest 값 검증
-        // TODO: 안함
 
-        // 요청 Form -> Member 객체 생성
-        Member createdMember = Member.builder()
-            .name(form.getName())
-            .studentId(form.getStudentId())
-            .phone(form.getPhone())
-            .email(form.getEmail())
-            .memberStatus(MemberStatus.ACTIVE)
-            .role("USER")
-            .build();
+        Member createdMember = form.toEntity();
 
-        // 생성한 Member DB 저장
         return CreateMemberResponse.from(memberRepository.save(createdMember));
     }
 
@@ -68,13 +56,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public MemberDto updateMember(Long id, MemberUpdateRequest request) {
+    public MemberDto updateMember(Long id, UpdateMemberRequest request) {
         Member member = memberRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
-        member.updateName(request.getName());
-        member.updateStudentId(request.getStudentId());
-        member.updatePhone(request.getPhone());
-        member.updateEmail(request.getEmail());
+        member.updateName(request.name());
+        member.updateStudentId(request.studentId());
+        member.updatePhone(request.phone());
+        member.updateEmail(request.email());
 
         return MemberDto.from(memberRepository.save(member));
     }
