@@ -2,7 +2,7 @@ package com.example.ifclubserver.common.docs;
 
 import com.example.ifclubserver.member.domain.dto.MemberDto;
 import com.example.ifclubserver.member.domain.dto.request.CreateMemberRequest;
-import com.example.ifclubserver.member.domain.dto.request.MemberUpdateRequest;
+import com.example.ifclubserver.member.domain.dto.request.UpdateMemberRequest;
 import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -55,5 +55,5 @@ public interface MemberControllerDocs {
               content = @Content(schema = @Schema(implementation = MemberDto.class))),
           @ApiResponse(responseCode = "404", description = "회원 찾을 수 없음")
       })
-  ResponseEntity<MemberDto> updateMember(@PathVariable Long id, @RequestBody MemberUpdateRequest memberUpdate);
+  ResponseEntity<MemberDto> updateMember(@PathVariable Long id, @RequestBody UpdateMemberRequest memberUpdate);
 }

@@ -4,7 +4,7 @@ import com.example.ifclubserver.common.docs.MemberControllerDocs;
 import com.example.ifclubserver.member.application.impl.MemberServiceImpl;
 import com.example.ifclubserver.member.domain.dto.MemberDto;
 import com.example.ifclubserver.member.domain.dto.request.CreateMemberRequest;
-import com.example.ifclubserver.member.domain.dto.request.MemberUpdateRequest;
+import com.example.ifclubserver.member.domain.dto.request.UpdateMemberRequest;
 import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +53,7 @@ public class MemberController implements MemberControllerDocs {
 
     @PutMapping("/{id}")
     public ResponseEntity<MemberDto> updateMember(@PathVariable  Long id,
-        @RequestBody MemberUpdateRequest memberUpdate) {
+        @RequestBody UpdateMemberRequest memberUpdate) {
         return ResponseEntity.ok().body(memberServiceImpl.updateMember(id, memberUpdate));
     }
 
