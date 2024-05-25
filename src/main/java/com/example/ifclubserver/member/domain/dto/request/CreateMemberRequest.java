@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 public class CreateMemberRequest {
     private String name;
+    private String studentId;
     private String phone;
     private String email;
-
 }

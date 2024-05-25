@@ -10,14 +10,14 @@ import java.util.List;
 public interface MemberService {
 
     // 멤버 생성
-    public CreateMemberResponse createMember(CreateMemberRequest form);
+    CreateMemberResponse createMember(CreateMemberRequest form);
 
     // 멤버 가져오기
-    public MemberDto getMember(Long id);
+    MemberDto getMember(Long id);
 
-    public List<MemberDto> getMembers();
+    List<MemberDto> getMembers();
 
-    public void deleteMember(Long id);
+    void deleteMember(Long id);
 
-    public MemberDto updateMember(Long id, MemberUpdateRequest request);
+    MemberDto updateMember(Long id, MemberUpdateRequest request);
 }

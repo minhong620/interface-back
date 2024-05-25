@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MemberUpdateRequest {
     private String name;
+    private String studentId;
     private String phone;
     private String email;
 }

@@ -34,6 +34,9 @@ public class Member {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "student_id", nullable = false)
+    private String studentId;
+
     private String password;
 
     @Column(name = "title", nullable = false, unique = true)
@@ -47,6 +50,11 @@ public class Member {
 
     @Column(name = "role", nullable = false)
     private String role;
+
+    public void updateStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
 
     public void updateName(String name) {
         this.name = name;
