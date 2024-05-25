@@ -12,4 +12,5 @@ public class MemberUpdateRequest {
     private String studentId;
     private String phone;
     private String email;
+public record MemberUpdateRequest(String name, String studentId, String phone, String email) {
 }

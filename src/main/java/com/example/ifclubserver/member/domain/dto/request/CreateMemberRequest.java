@@ -10,4 +10,6 @@ public class CreateMemberRequest {
     private String studentId;
     private String phone;
     private String email;
+
+public record CreateMemberRequest(String name, String String studentId, phone,String email) {
 }

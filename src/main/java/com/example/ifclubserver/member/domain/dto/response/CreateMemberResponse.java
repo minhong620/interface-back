@@ -12,12 +12,16 @@ public class CreateMemberResponse {
     private String studentId;
     private String email;
 
+@Builder
+public record CreateMemberResponse(Long id, String name, String phone, String email) {
+
     public static CreateMemberResponse from(Member member) {
-        return CreateMemberResponse.builder()
-            .memberId(member.getId())
-            .name(member.getName())
-            .studentId(member.getStudentId())
-            .email(member.getEmail())
-            .build();
+        return new CreateMemberResponse(
+                member.getId(),
+                member.getName(),
+                member.getStudentId(),
+                member.getPhone(),
+                member.getEmail()
+        );
     }
 }

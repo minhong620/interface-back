@@ -71,7 +71,6 @@ public class MemberServiceImpl implements MemberService {
     public MemberDto updateMember(Long id, MemberUpdateRequest request) {
         Member member = memberRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
-
         member.updateName(request.getName());
         member.updateStudentId(request.getStudentId());
         member.updatePhone(request.getPhone());
