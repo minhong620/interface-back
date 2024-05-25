@@ -5,6 +5,7 @@ import com.example.ifclubserver.member.domain.dto.request.CreateMemberRequest;
 import com.example.ifclubserver.member.domain.dto.request.MemberUpdateRequest;
 import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import com.example.ifclubserver.member.domain.entity.Member;
+import java.util.List;
 
 public interface MemberService {
 
@@ -13,6 +14,8 @@ public interface MemberService {
 
     // 멤버 가져오기
     public MemberDto getMember(Long id);
+
+    public List<MemberDto> getMembers();
 
     public void deleteMember(Long id);
 

@@ -7,6 +7,7 @@ import com.example.ifclubserver.member.domain.dto.request.MemberUpdateRequest;
 import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import com.example.ifclubserver.member.domain.entity.Member;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/members")
 public class MemberController {
 
     final private MemberServiceImpl memberServiceImpl;
 
 
-    @PostMapping("/members")
+    @PostMapping("/")
     public ResponseEntity<CreateMemberResponse> create(CreateMemberRequest form, HttpServletResponse httpServletResponse) {
         // CORS 허용 헤더 추가
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");
@@ -33,9 +35,23 @@ public class MemberController {
         return ResponseEntity.ok(createMemberResponse);
     }
 
-    @GetMapping("/members/{id}")
+    @GetMapping("/")
+    public ResponseEntity<List<MemberDto>> getMembers(
+        HttpServletResponse httpServletResponse
+    ) {
+        // CORS 허용 헤더 추가
+        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");
+        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET, POST, PUT, DELETE, OPTIONS");
+        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization");
+        httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+        List<MemberDto> memberDtos = memberServiceImpl.getMembers();
+
+        return ResponseEntity.ok(memberDtos);
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<MemberDto> getMember(
-            @PathVariable("id") Long id , HttpServletResponse httpServletResponse
+        @PathVariable("id") Long id , HttpServletResponse httpServletResponse
     ) {
         // CORS 허용 헤더 추가
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");
@@ -47,7 +63,7 @@ public class MemberController {
         return ResponseEntity.ok(memberDto);
     }
 
-    @DeleteMapping("/members/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMember(@PathVariable long id, HttpServletResponse httpServletResponse) {
         // CORS 허용 헤더 추가
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");
@@ -60,7 +76,7 @@ public class MemberController {
                 .build();
     }
 
-    @PutMapping("/members/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<MemberDto> updateMember(@PathVariable long id, @RequestBody MemberUpdateRequest memberUpdate, HttpServletResponse httpServletResponse) {
         // CORS 허용 헤더 추가
         httpServletResponse.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://220.85.169.165:3002");

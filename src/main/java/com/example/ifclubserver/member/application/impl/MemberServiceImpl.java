@@ -8,10 +8,12 @@ import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import com.example.ifclubserver.member.domain.entity.Member;
 import com.example.ifclubserver.member.domain.repository.MemberRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.ifclubserver.member.exception.MemberErrorType;
 import com.example.ifclubserver.member.exception.MemberException;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +56,14 @@ public class MemberServiceImpl implements MemberService {
 
         // Optional인 Member를 Member로 바꾸는거
         return MemberDto.from(optionalMember.get());
+    }
+
+    @Override
+    public List<MemberDto> getMembers() {
+        List<Member> members = memberRepository.findAll();
+        return  members.stream()
+            .map(member -> MemberDto.from(member))
+            .collect(Collectors.toList());
     }
 
     public void deleteMember(Long id) {
