@@ -29,9 +29,9 @@ public class MemberServiceImpl implements MemberService {
 
         // 요청 Form -> Member 객체 생성
         Member createdMember = Member.builder()
-                .name(form.getName())
-                .phone(form.getPhone())
-                .email(form.getEmail())
+                .name(form.name())
+                .phone(form.phone())
+                .email(form.email())
                 .build();
 
         // 생성한 Member DB 저장
@@ -65,9 +65,9 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
-        member.updateName(request.getName());
-        member.updatePhone(request.getPhone());
-        member.updateEmail(request.getEmail());
+        member.updateName(request.name());
+        member.updatePhone(request.phone());
+        member.updateEmail(request.email());
 
         return MemberDto.from(memberRepository.save(member));
     }
