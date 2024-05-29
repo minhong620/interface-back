@@ -40,7 +40,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back-container:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back-container:latest,${{ secrets.DOCKERHUB_USERNAME }}/if-club-back-container:${{ github.sha }}
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/if-club-back-container:cache
           cache-to: type=inline
 
@@ -67,4 +67,4 @@ jobs:
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
-              ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back:latest
+              ${{ secrets.DOCKERHUB_USERNAME }}/if-club-back-container:latest
