@@ -6,7 +6,6 @@ import com.example.ifclubserver.member.domain.dto.request.CreateMemberRequest;
 import com.example.ifclubserver.member.domain.dto.request.UpdateMemberRequest;
 import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import com.example.ifclubserver.member.domain.entity.Member;
-import com.example.ifclubserver.member.domain.entity.constants.MemberStatus;
 import com.example.ifclubserver.member.domain.repository.MemberRepository;
 import com.example.ifclubserver.member.exception.MemberErrorType;
 import com.example.ifclubserver.member.exception.MemberException;
