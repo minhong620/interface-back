@@ -19,33 +19,33 @@ public class PostController implements PostControllerDocs {
 
     private final PostService postService;
 
-    @PostMapping("/")
-    ResponseEntity<CreatePostResponse> create(@RequestBody CreatePostRequest request) {
+    @PostMapping
+    public ResponseEntity<CreatePostResponse> create(@RequestBody CreatePostRequest request) {
         CreatePostResponse createPostResponse = postService.createPost(request);
         return ResponseEntity.ok(createPostResponse);
     }
 
-    @GetMapping("/")
-    ResponseEntity<List<PostDto>> getPosts(@RequestParam Long clubId) {
+    @GetMapping
+    public ResponseEntity<List<PostDto>> getPosts(@RequestParam Long clubId) {
         List<PostDto> postDtos = postService.getPosts(clubId);
         return ResponseEntity.ok(postDtos);
     }
 
-    @GetMapping("/{postId}")
-    ResponseEntity<PostDto> getPost(@PathVariable Long postId) {
-        PostDto postDto = postService.getPost(postId);
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getPost(@PathVariable Long id) {
+        PostDto postDto = postService.getPost(id);
         return ResponseEntity.ok(postDto);
     }
 
-    @PatchMapping("/{postId}")
-    ResponseEntity<PostDto> updatePost(@PathVariable Long postId, @RequestBody UpdatePostRequest request) {
-        PostDto postDto = postService.updatePost(postId, request);
+    @PatchMapping("/{id}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable Long id, @RequestBody UpdatePostRequest request) {
+        PostDto postDto = postService.updatePost(id, request);
         return ResponseEntity.ok(postDto);
     }
 
-    @DeleteMapping("/{postId}")
-    ResponseEntity<Void> deletePost(@PathVariable Long postId) {
-        postService.deletePost(postId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
         return ResponseEntity.ok().build();
     }
 
