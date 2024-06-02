@@ -1,7 +1,10 @@
 package com.example.ifclubserver.post.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -23,10 +26,21 @@ public class Post {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
     @Builder
-    public Post(String title, String content, LocalDateTime createdAt) {
+    public Post(String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public void updatePost(String title, String content) {
+        if (title.isBlank() && content.isBlank()) return;
+        if (!title.isBlank()) this.title = title;
+        if (!content.isBlank()) this.content = content;
+        this.updatedAt = LocalDateTime.now();
     }
 }
