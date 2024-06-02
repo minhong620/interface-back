@@ -5,9 +5,13 @@ import com.example.ifclubserver.post.domain.dto.request.CreatePostRequest;
 import com.example.ifclubserver.post.domain.dto.request.UpdatePostRequest;
 import com.example.ifclubserver.post.domain.dto.response.CreatePostResponse;
 import com.example.ifclubserver.post.domain.dto.response.PostDto;
+import com.example.ifclubserver.post.domain.entity.Post;
 import com.example.ifclubserver.post.domain.repository.PostRepository;
+import com.example.ifclubserver.post.exception.PostErrorType;
+import com.example.ifclubserver.post.exception.PostException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +24,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public CreatePostResponse createPost(CreatePostRequest request) {
-        return null;
+        Post post = postRepository.save(request.toEntity());
+        return CreatePostResponse.of(post);
     }
 
     @Override
@@ -29,17 +34,29 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PostDto getPost(Long id) {
-        return null;
+        Post post = getById(id);
+        return PostDto.of(post);
     }
 
     @Override
+    @Transactional
     public PostDto updatePost(Long id, UpdatePostRequest request) {
-        return null;
+        Post post = getById(id);
+        post.updatePost(request.title(), request.content());
+        post = postRepository.save(post);
+        return PostDto.of(post);
     }
 
     @Override
+    @Transactional
     public void deletePost(Long id) {
+        postRepository.deleteById(id);
+    }
 
+    private Post getById(Long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new PostException(PostErrorType.POST_NOT_FOUND));
     }
 }
