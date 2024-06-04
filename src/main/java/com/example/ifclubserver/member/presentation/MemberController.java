@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/members")
 public class MemberController implements MemberControllerDocs {
 
-    final private MemberServiceImpl memberServiceImpl;
+    private final MemberServiceImpl memberServiceImpl;
 
     @PostMapping("/")
     public ResponseEntity<CreateMemberResponse> create(@RequestBody CreateMemberRequest form) {
