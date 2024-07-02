@@ -1,26 +1,25 @@
-package com.example.ifclubserver.common.auth;
+package com.example.ifclubserver.member.domain.entity;
 
-import com.example.ifclubserver.member.domain.entity.Member;
 import com.example.ifclubserver.member.domain.entity.constants.MemberStatus;
 import java.util.Collection;
 import java.util.Collections;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Builder
 public class CustomUserDetails implements UserDetails {
   private final Member member;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Collections.singletonList(
-        new SimpleGrantedAuthority(member.getRole().getDescription()));
+    return Collections.singletonList(new SimpleGrantedAuthority(member.getRole().getDescription()));
   }
 
   @Override
@@ -28,7 +27,6 @@ public class CustomUserDetails implements UserDetails {
     return member.getPassword();
   }
 
-  // Username 은 MemberId로 가정한다.
   @Override
   public String getUsername() {
     return member.getId().toString();
