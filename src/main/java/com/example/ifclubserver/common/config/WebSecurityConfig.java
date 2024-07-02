@@ -1,6 +1,6 @@
 package com.example.ifclubserver.common.config;
 
-import com.example.ifclubserver.common.auth.CustomUserDetailsService;
+import com.example.ifclubserver.member.application.impl.CustomUserDetailsService;
 import java.util.Arrays;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -56,7 +57,8 @@ public class WebSecurityConfig {
                     "/v3/api-docs/**", // Swagger
                     "/api/token" //TODO: Access Token 재발급 (미구현)
                 ).permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/my-page").hasAuthority(MEMBER) //FIXME: 예시 API
+                .requestMatchers(HttpMethod.GET, "/api/my-page")
+                .hasAuthority(MEMBER) //FIXME: 예시 API
                 .anyRequest().authenticated()
             )
 
@@ -109,7 +111,7 @@ public class WebSecurityConfig {
   }
 
   @Bean
-  public BCryptPasswordEncoder passwordEncoder(){
+  public BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 }
