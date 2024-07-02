@@ -1,5 +1,6 @@
 package com.example.ifclubserver.common.config;
 
+import com.example.ifclubserver.common.filter.TokenAuthenticationFilter;
 import com.example.ifclubserver.member.application.impl.CustomUserDetailsService;
 import java.util.Arrays;
 import java.util.Collections;
@@ -74,8 +75,8 @@ public class WebSecurityConfig {
             )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//            .addFilterBefore(new TokenAuthenticationFilter(jwtUtil),
-//                UsernamePasswordAuthenticationFilter.class) //TODO: JWT 미구현
+            .addFilterBefore(new TokenAuthenticationFilter(jwtUtil),
+                UsernamePasswordAuthenticationFilter.class)
             .build();
   }
 
