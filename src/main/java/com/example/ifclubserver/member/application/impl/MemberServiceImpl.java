@@ -86,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
                 memberRepository.save(Member.builder()
                         .name(form.name())
                         .studentId(form.studentId())
-                        .password(form.password())
+                        .password(passwordEncoder.encode(form.password()))
                         .phone(form.phone())
                         .email(form.email())
                         .status(MemberStatus.ACTIVE)
