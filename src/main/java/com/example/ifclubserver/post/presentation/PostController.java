@@ -7,6 +7,7 @@ import com.example.ifclubserver.post.domain.dto.request.UpdatePostRequest;
 import com.example.ifclubserver.post.domain.dto.response.CreatePostResponse;
 import com.example.ifclubserver.post.domain.dto.response.PostDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,15 @@ public class PostController implements PostControllerDocs {
     public ResponseEntity<CreatePostResponse> create(@RequestBody CreatePostRequest request) {
         CreatePostResponse createPostResponse = postService.createPost(request);
         return ResponseEntity.ok(createPostResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<PostDto>> getPaginatedPosts(
+            @RequestParam Long clubId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<PostDto> postDtos = postService.getPaginatedPosts(clubId, page, size);
+        return ResponseEntity.ok(postDtos);
     }
 
     @GetMapping
