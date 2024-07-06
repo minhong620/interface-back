@@ -1,5 +1,6 @@
 package com.example.ifclubserver.member.application.impl;
 
+import com.example.ifclubserver.common.jwt.JwtUtils;
 import com.example.ifclubserver.member.application.MemberService;
 import com.example.ifclubserver.member.domain.dto.MemberDto;
 import com.example.ifclubserver.member.domain.dto.request.CreateMemberRequest;
@@ -8,6 +9,7 @@ import com.example.ifclubserver.member.domain.dto.request.SignUpMemberRequest;
 import com.example.ifclubserver.member.domain.dto.request.UpdateMemberRequest;
 import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import com.example.ifclubserver.member.domain.dto.response.LoginMemberResponse;
+import com.example.ifclubserver.member.domain.entity.CustomUserDetails;
 import com.example.ifclubserver.member.domain.entity.Member;
 import com.example.ifclubserver.member.domain.entity.constants.MemberRole;
 import com.example.ifclubserver.member.domain.entity.constants.MemberStatus;
@@ -15,6 +17,7 @@ import com.example.ifclubserver.member.domain.repository.MemberRepository;
 import com.example.ifclubserver.member.exception.MemberErrorType;
 import com.example.ifclubserver.member.exception.MemberException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +29,8 @@ import java.util.stream.Collectors;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final JwtUtils jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public CreateMemberResponse createMember(CreateMemberRequest form) {
@@ -94,19 +99,18 @@ public class MemberServiceImpl implements MemberService {
     public LoginMemberResponse login(LoginMemberRequest form) {
         // 아이디 검증
         Member member = memberRepository.findByEmail(form.email())
-                .orElseThrow(() -> new MemberException(ErrorCode.EMAIL_NOT_FOUND));
+                .orElseThrow(() -> new MemberException(MemberErrorType.EMAIL_NOT_FOUND));
 
         // 비밀번호 검증
-        if (!passwordEncoder.matches(form.getPassword(), member.getPassword())) {
-            throw new MemberException(ErrorCode.INVALID_PASSWORD);
+        if (!passwordEncoder.matches(form.password(), member.getPassword())) {
+            throw new MemberException(MemberErrorType.INVALID_PASSWORD);
         }
 
         String accessToken = jwtUtil.createAccessToken(
                 CustomUserDetails.builder()
                         .member(member)
                         .build());
-        String refreshToken = tokenService.createRefreshToken(member);
 
-        return MemberLoginResponse.from(member, accessToken, refreshToken);
+        return LoginMemberResponse.from(member, accessToken);
     }
 }
