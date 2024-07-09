@@ -26,7 +26,7 @@ public class PostController implements PostControllerDocs {
         return ResponseEntity.ok(createPostResponse);
     }
 
-    @GetMapping
+    @GetMapping("/paginated")
     public ResponseEntity<Page<PostDto>> getPaginatedPosts(
             @RequestParam Long clubId,
             @RequestParam(defaultValue = "0") int page,
