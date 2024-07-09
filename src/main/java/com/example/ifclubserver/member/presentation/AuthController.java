@@ -16,24 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 public class AuthController {
-  private final MemberService memberService;
+    private final MemberService memberService;
 
-  @PostMapping("login")
-  public ResponseEntity<LoginMemberResponse> login(
-      @RequestBody LoginMemberRequest request
-  ) {
-    LoginMemberResponse memberLoginResponse = memberService.login(request);
-    return ResponseEntity.ok()
-        .header("Authorization",
-            "Bearer " + memberLoginResponse.accessToken()).build();
-  }
+    @PostMapping("/login")
+    public ResponseEntity<LoginMemberResponse> login(
+            @RequestBody LoginMemberRequest request
+    ) {
+        LoginMemberResponse memberLoginResponse = memberService.login(request);
+        return ResponseEntity.ok()
+                .header("Authorization",
+                        "Bearer " + memberLoginResponse.accessToken()).build();
+    }
 
-  @PostMapping("/signup")
-  public ResponseEntity<MemberDto> signup(
-      @RequestBody SignUpMemberRequest request
-  ) {
-    MemberDto savedMember = memberService.save(request);
-    return ResponseEntity.ok(savedMember);
-  }
+    @PostMapping("/signup")
+    public ResponseEntity<MemberDto> signup(
+            @RequestBody SignUpMemberRequest request
+    ) {
+        MemberDto savedMember = memberService.save(request);
+        return ResponseEntity.ok(savedMember);
+    }
 
 }
