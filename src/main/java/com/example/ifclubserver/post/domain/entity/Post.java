@@ -35,11 +35,12 @@ public class Post {
     private Member member;
 
     @Builder
-    public Post(String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Post(String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.member = member;
     }
 
     public void updatePost(String title, String content) {
