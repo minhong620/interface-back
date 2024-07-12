@@ -12,6 +12,7 @@ import com.example.ifclubserver.post.exception.PostException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,15 +32,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getPosts(Long clubId) {
-        return null;
-    }
-
-    @Override
     @Transactional(readOnly = true)
-    public Page<PostDto> getPaginatedPosts(Long clubId, int page, int size) { // 페이지네이션 메서드 이름 변경
+    public Slice<PostDto> getPosts(Long id, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Post> postPage = postRepository.findByClubId(clubId, pageRequest);
+        Slice<Post> postPage = postRepository.findByClubId(id, pageRequest);
         return postPage.map(PostDto::of);
     }
 

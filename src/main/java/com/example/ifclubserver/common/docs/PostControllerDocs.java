@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +35,9 @@ public interface PostControllerDocs {
                             content = @Content(schema = @Schema(implementation = PostDto.class))),
                     @ApiResponse(responseCode = "404", description = "게시글 찾을 수 없음")
             })
-    ResponseEntity<List<PostDto>> getPosts(@RequestParam Long clubId);
+    ResponseEntity<Slice<PostDto>> getPosts(@RequestParam Long clubId,
+                                            @RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size);
 
     @Operation(summary = "게시글 ID로 조회", description = "게시글 ID를 사용하여 게시글을 조회합니다.",
             responses = {

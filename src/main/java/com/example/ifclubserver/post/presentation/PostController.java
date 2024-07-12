@@ -8,6 +8,7 @@ import com.example.ifclubserver.post.domain.dto.response.CreatePostResponse;
 import com.example.ifclubserver.post.domain.dto.response.PostDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,18 +27,12 @@ public class PostController implements PostControllerDocs {
         return ResponseEntity.ok(createPostResponse);
     }
 
-    @GetMapping("/paginated")
-    public ResponseEntity<Page<PostDto>> getPaginatedPosts(
-            @RequestParam Long clubId,
+    @GetMapping("/{id}")
+    public ResponseEntity<Slice<PostDto>> getPosts(
+            @PathVariable Long id,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        Page<PostDto> postDtos = postService.getPaginatedPosts(clubId, page, size);
-        return ResponseEntity.ok(postDtos);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<PostDto>> getPosts(@RequestParam Long clubId) {
-        List<PostDto> postDtos = postService.getPosts(clubId);
+        Slice<PostDto> postDtos = postService.getPosts(id, page, size);
         return ResponseEntity.ok(postDtos);
     }
 
