@@ -10,6 +10,9 @@ import com.example.ifclubserver.post.domain.repository.PostRepository;
 import com.example.ifclubserver.post.exception.PostErrorType;
 import com.example.ifclubserver.post.exception.PostException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,8 +32,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getPosts(Long clubId) {
-        return null;
+    @Transactional(readOnly = true)
+    public Slice<PostDto> getPosts(Long id, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Slice<Post> postPage = postRepository.findByClubId(id, pageRequest);
+        return postPage.map(PostDto::of);
     }
 
     @Override

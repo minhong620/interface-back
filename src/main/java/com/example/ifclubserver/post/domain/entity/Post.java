@@ -1,5 +1,6 @@
 package com.example.ifclubserver.post.domain.entity;
 
+import com.example.ifclubserver.member.domain.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -29,12 +30,17 @@ public class Post {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
     @Builder
-    public Post(String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Post(String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.member = member;
     }
 
     public void updatePost(String title, String content) {
