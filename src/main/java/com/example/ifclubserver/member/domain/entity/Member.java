@@ -1,27 +1,27 @@
 package com.example.ifclubserver.member.domain.entity;
 
 import com.example.ifclubserver.club.domain.entity.Club;
+import com.example.ifclubserver.common.entitiy.BaseEntity;
 import com.example.ifclubserver.member.domain.entity.constants.MemberRole;
 import com.example.ifclubserver.member.domain.entity.constants.MemberStatus;
-import com.example.ifclubserver.post.domain.entity.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 
 @ToString(exclude = "password")
 @Entity
 @Setter
-@Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+@SuperBuilder
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

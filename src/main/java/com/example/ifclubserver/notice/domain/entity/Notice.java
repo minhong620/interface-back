@@ -1,18 +1,17 @@
 package com.example.ifclubserver.notice.domain.entity;
 
-import com.example.ifclubserver.club.domain.entity.Club;
-import com.example.ifclubserver.member.domain.entity.Member;
-import com.example.ifclubserver.post.domain.entity.Post;
+import com.example.ifclubserver.common.entitiy.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Notice {
+@SuperBuilder
+public class Notice extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +26,6 @@ public class Notice {
 
     @Column(name = "author", nullable = false)
     private String author;
-
-    @Column(name = "created_at", nullable = false)
-    private String createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
 
     public void updateTitle(String title) {
         this.title = title;
