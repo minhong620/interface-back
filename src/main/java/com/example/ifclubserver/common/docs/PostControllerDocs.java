@@ -35,7 +35,7 @@ public interface PostControllerDocs {
                             content = @Content(schema = @Schema(implementation = PostDto.class))),
                     @ApiResponse(responseCode = "404", description = "게시글 찾을 수 없음")
             })
-    ResponseEntity<Slice<PostDto>> getPosts(@RequestParam Long clubId,
+    ResponseEntity<Slice<PostDto>> getPosts(@PathVariable Long clubId,
                                             @RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "10") int size);
 
