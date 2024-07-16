@@ -15,8 +15,6 @@ public record CreateNoticeRequest(String title, String content, String author) {
             .title(this.title)
             .content(this.content)
             .author(this.author)
-            .createdAt(System.currentTimeMillis() + "")
-            .updatedAt(System.currentTimeMillis() + "")
             .build();
     }
 }

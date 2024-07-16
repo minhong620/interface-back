@@ -16,8 +16,6 @@ public record CreateNoticeResponse(Long id, String title, String content, String
             .title(notice.getTitle())
             .content(notice.getContent())
             .author(notice.getAuthor())
-            .createdAt(notice.getCreatedAt())
-            .updatedAt(notice.getUpdatedAt())
             .build();
     }
 }
