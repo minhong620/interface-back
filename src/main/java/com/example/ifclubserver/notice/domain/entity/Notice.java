@@ -34,10 +34,6 @@ public class Notice {
     @Column(name = "updated_at", nullable = false)
     private String updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
-    private Post post;
-
     public void updateTitle(String title) {
         this.title = title;
     }
