@@ -10,5 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ClubRepository extends JpaRepository<Club, Long> {
+    Optional<Club> findById(Long id);
+
     Slice<Club> findById(Long id, Pageable pageable);
 }
