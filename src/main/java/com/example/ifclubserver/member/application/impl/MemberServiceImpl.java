@@ -17,6 +17,8 @@ import com.example.ifclubserver.member.domain.repository.MemberRepository;
 import com.example.ifclubserver.member.exception.MemberErrorType;
 import com.example.ifclubserver.member.exception.MemberException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,11 +53,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberDto> getMembers() {
-        List<Member> members = memberRepository.findAll();
-        return members.stream()
-                .map(MemberDto::from)
-                .collect(Collectors.toList());
+    public Slice<MemberDto> getMembers(Long id, int page, int size) {
+        PageRequest pageRequest=PageRequest.of(page,size);
+        Slice<Member> memberPage = memberRepository.findById(id, pageRequest);
+        return memberPage.map(MemberDto::from);
     }
 
     @Override

@@ -10,10 +10,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "회원 API", description = "회원 관련 API")
 public interface MemberControllerDocs {
@@ -32,7 +34,9 @@ public interface MemberControllerDocs {
               content = @Content(schema = @Schema(implementation = MemberDto.class))),
           @ApiResponse(responseCode = "404", description = "회원 찾을 수 없음")
       })
-  ResponseEntity<List<MemberDto>> getMembers();
+  ResponseEntity<Slice<MemberDto>> getMembers(@PathVariable Long Id,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size);
 
   @Operation(summary = "회원 ID로 조회", description = "회원 ID를 사용하여 회원을 조회합니다.",
       responses = {
