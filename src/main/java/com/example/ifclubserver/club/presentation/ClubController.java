@@ -8,6 +8,7 @@ import com.example.ifclubserver.club.domain.dto.request.UpdateClubRequest;
 import com.example.ifclubserver.club.domain.dto.response.CreateClubResponse;
 import com.example.ifclubserver.common.docs.ClubControllerDocs;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +27,11 @@ public class ClubController implements ClubControllerDocs {
         return ResponseEntity.ok(createClubResponse);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<ClubDto>> getClubs(){
-        List<ClubDto> clubDtos= clubServiceImpl.getClubs();
+    @GetMapping("/{id}")
+    public ResponseEntity<Slice<ClubDto>> getClubs(@PathVariable Long id,
+                                                   @RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "10") int size){
+        Slice<ClubDto> clubDtos= clubServiceImpl.getClubs(id, page, size);
         return ResponseEntity.ok(clubDtos);
     }
 

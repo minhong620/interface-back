@@ -13,6 +13,9 @@ import com.example.ifclubserver.club.exception.ClubException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,11 +42,10 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public List<ClubDto> getClubs() {
-        List<Club> clubs=clubRepository.findAll();
-        return clubs.stream()
-                .map(ClubDto::from)
-                .collect(Collectors.toList());
+    public Slice<ClubDto> getClubs(Long id, int page, int size) {
+        PageRequest pageRequest=PageRequest.of(page,size);
+        Slice<Club> clubPage = clubRepository.findById(id, pageRequest);
+        return clubPage.map(ClubDto::from);
     }
 
     @Override
