@@ -29,10 +29,6 @@ public class Club {
     @Column(name = "leader", nullable = false)
     private String leader;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
-
     public void updateName(String newName) {
         this.name = newName;
     }

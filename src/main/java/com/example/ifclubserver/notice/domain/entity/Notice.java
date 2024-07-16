@@ -1,5 +1,8 @@
 package com.example.ifclubserver.notice.domain.entity;
 
+import com.example.ifclubserver.club.domain.entity.Club;
+import com.example.ifclubserver.member.domain.entity.Member;
+import com.example.ifclubserver.post.domain.entity.Post;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +33,10 @@ public class Notice {
 
     @Column(name = "updated_at", nullable = false)
     private String updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
     public void updateTitle(String title) {
         this.title = title;
