@@ -34,8 +34,7 @@ public interface NoticeControllerDocs {
               content = @Content(schema = @Schema(implementation = NoticeDto.class))),
           @ApiResponse(responseCode = "404", description = "공지사항 찾을 수 없음")
       })
-  ResponseEntity<Slice<NoticeDto>> getNotices(@PathVariable Long id,
-                                              @RequestParam(defaultValue = "0") int page,
+  ResponseEntity<Slice<NoticeDto>> getNotices(@RequestParam(defaultValue = "0") int page,
                                               @RequestParam(defaultValue = "10") int size);
 
   @Operation(summary = "공지사항 ID로 조회", description = "공지사항 ID를 사용하여 공지사항을 조회합니다.",

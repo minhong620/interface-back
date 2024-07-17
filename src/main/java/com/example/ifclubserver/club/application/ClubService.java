@@ -4,6 +4,7 @@ import com.example.ifclubserver.club.domain.dto.ClubDto;
 import com.example.ifclubserver.club.domain.dto.request.CreateClubRequest;
 import com.example.ifclubserver.club.domain.dto.request.UpdateClubRequest;
 import com.example.ifclubserver.club.domain.dto.response.CreateClubResponse;
+import org.aspectj.weaver.Lint;
 import org.springframework.data.domain.Slice;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface ClubService {
 
     ClubDto getClub(Long id);
 
-    Slice<ClubDto> getClubs(Long id, int page, int size);
+    Slice<ClubDto> getClubs(int page, int size);
 
     void deleteClub(Long id);
 

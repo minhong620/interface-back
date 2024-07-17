@@ -28,10 +28,9 @@ public class MemberController implements MemberControllerDocs {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Slice<MemberDto>> getMembers(@PathVariable Long id,
-                                                      @RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Slice<MemberDto>> getMembers(@RequestParam(defaultValue = "0") int page,
                                                       @RequestParam(defaultValue = "10") int size) {
-        Slice<MemberDto> memberDtos = memberServiceImpl.getMembers(id, page, size);
+        Slice<MemberDto> memberDtos = memberServiceImpl.getMembers(page, size);
         return ResponseEntity.ok(memberDtos);
     }
 

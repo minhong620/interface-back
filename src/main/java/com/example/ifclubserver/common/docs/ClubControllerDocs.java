@@ -34,8 +34,7 @@ public interface ClubControllerDocs {
                             content = @Content(schema = @Schema(implementation = ClubDto.class))),
                     @ApiResponse(responseCode = "404", description = "소모임 찾을 수 없음")
             })
-    ResponseEntity<Slice<ClubDto>> getClubs(@PathVariable Long id,
-                                            @RequestParam(defaultValue = "0") int page,
+    ResponseEntity<Slice<ClubDto>> getClubs(@RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "10") int size);
 
     @Operation(summary = "소모임 ID로 조회", description = "소모임 ID를 사용하여 소모임을 조회합니다.",

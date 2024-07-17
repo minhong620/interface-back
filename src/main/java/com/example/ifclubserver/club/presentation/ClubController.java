@@ -27,17 +27,16 @@ public class ClubController implements ClubControllerDocs {
         return ResponseEntity.ok(createClubResponse);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Slice<ClubDto>> getClubs(@PathVariable Long id,
-                                                   @RequestParam(defaultValue = "0") int page,
+    @GetMapping("/")
+    public ResponseEntity<Slice<ClubDto>> getClubs(@RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "10") int size){
-        Slice<ClubDto> clubDtos= clubServiceImpl.getClubs(id, page, size);
+        Slice<ClubDto> clubDtos = clubServiceImpl.getClubs(page, size);
         return ResponseEntity.ok(clubDtos);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ClubDto> getClub(@PathVariable("id") Long id){
-        ClubDto clubDto=clubServiceImpl.getClub(id);
+        ClubDto clubDto = clubServiceImpl.getClub(id);
         return ResponseEntity.ok(clubDto);
     }
 

@@ -24,11 +24,10 @@ public class NoticeController implements NoticeControllerDocs {
         return ResponseEntity.ok(createNoticeResponse);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Slice<NoticeDto>> getNotices(@PathVariable Long id,
-                                                       @RequestParam(defaultValue = "0") int page,
+    @GetMapping("/")
+    public ResponseEntity<Slice<NoticeDto>> getNotices(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size) {
-        Slice<NoticeDto> noticeDtos= noticeService.getNotices(id,page,size);
+        Slice<NoticeDto> noticeDtos= noticeService.getNotices(page,size);
         return ResponseEntity.ok(noticeDtos);
     }
 

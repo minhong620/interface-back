@@ -4,6 +4,7 @@ import com.example.ifclubserver.notice.domain.dto.NoticeDto;
 import com.example.ifclubserver.notice.domain.dto.request.CreateNoticeRequest;
 import com.example.ifclubserver.notice.domain.dto.request.UpdateNoticeRequest;
 import com.example.ifclubserver.notice.domain.dto.response.CreateNoticeResponse;
+import org.aspectj.weaver.Lint;
 import org.springframework.data.domain.Slice;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface NoticeService {
 
     NoticeDto getNotice(Long id);
 
-    Slice<NoticeDto> getNotices(Long id, int page, int size);
+    Slice<NoticeDto> getNotices(int page, int size);
 
     void deleteNotice(Long id);
 

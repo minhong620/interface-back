@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
-    Slice<Notice> findById(Long id, Pageable pageable);
+    Slice<Notice> findSliceBy(Pageable pageable);
 }

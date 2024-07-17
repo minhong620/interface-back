@@ -34,8 +34,7 @@ public interface MemberControllerDocs {
               content = @Content(schema = @Schema(implementation = MemberDto.class))),
           @ApiResponse(responseCode = "404", description = "회원 찾을 수 없음")
       })
-  ResponseEntity<Slice<MemberDto>> getMembers(@PathVariable Long Id,
-                                              @RequestParam(defaultValue = "0") int page,
+  ResponseEntity<Slice<MemberDto>> getMembers(@RequestParam(defaultValue = "0") int page,
                                               @RequestParam(defaultValue = "10") int size);
 
   @Operation(summary = "회원 ID로 조회", description = "회원 ID를 사용하여 회원을 조회합니다.",

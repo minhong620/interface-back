@@ -38,9 +38,9 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Slice<NoticeDto> getNotices(Long id, int page, int size) {
+    public Slice<NoticeDto> getNotices(int page, int size) {
         PageRequest pageRequest=PageRequest.of(page,size);
-        Slice<Notice> noticePage=noticeRepository.findById(id,pageRequest);
+        Slice<Notice> noticePage=noticeRepository.findSliceBy(pageRequest);
         return noticePage.map(NoticeDto::from);
     }
 

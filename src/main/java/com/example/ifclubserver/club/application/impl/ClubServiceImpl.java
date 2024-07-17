@@ -12,6 +12,7 @@ import com.example.ifclubserver.club.exception.ClubErrorType;
 import com.example.ifclubserver.club.exception.ClubException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.Lint;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,9 +43,9 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Slice<ClubDto> getClubs(Long id, int page, int size) {
+    public Slice<ClubDto> getClubs(int page, int size) {
         PageRequest pageRequest=PageRequest.of(page,size);
-        Slice<Club> clubPage = clubRepository.findById(id, pageRequest);
+        Slice<Club> clubPage = clubRepository.findSliceBy(pageRequest);
         return clubPage.map(ClubDto::from);
     }
 
