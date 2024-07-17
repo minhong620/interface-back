@@ -17,6 +17,7 @@ import com.example.ifclubserver.member.domain.repository.MemberRepository;
 import com.example.ifclubserver.member.exception.MemberErrorType;
 import com.example.ifclubserver.member.exception.MemberException;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.Lint;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,9 +54,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Slice<MemberDto> getMembers(Long id, int page, int size) {
+    public Slice<MemberDto> getMembers(int page, int size) {
         PageRequest pageRequest=PageRequest.of(page,size);
-        Slice<Member> memberPage = memberRepository.findById(id, pageRequest);
+        Slice<Member> memberPage = memberRepository.findSliceBy(pageRequest);
         return memberPage.map(MemberDto::from);
     }
 

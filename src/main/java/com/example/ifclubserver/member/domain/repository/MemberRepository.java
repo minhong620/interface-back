@@ -14,5 +14,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
   Optional<Member> findByStudentId(String studentId);
   Optional<Member> findByEmail(String email);
 
-  Slice<Member> findById(Long id, PageRequest pageRequest);
+  Slice<Member> findSliceBy(PageRequest pageRequest);
 }
