@@ -1,16 +1,17 @@
 package com.example.ifclubserver.club.domain.entity;
 
-import com.example.ifclubserver.member.domain.entity.Member;
+import com.example.ifclubserver.common.entitiy.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Setter
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Club {
+@SuperBuilder
+public class Club extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -28,10 +29,6 @@ public class Club {
 
     @Column(name = "leader", nullable = false)
     private String leader;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
 
     public void updateName(String newName) {
         this.name = newName;

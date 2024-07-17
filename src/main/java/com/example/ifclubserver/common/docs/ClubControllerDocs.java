@@ -10,10 +10,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "소모임 API", description = "소모임 관련 API")
 public interface ClubControllerDocs {
@@ -32,7 +34,9 @@ public interface ClubControllerDocs {
                             content = @Content(schema = @Schema(implementation = ClubDto.class))),
                     @ApiResponse(responseCode = "404", description = "소모임 찾을 수 없음")
             })
-    ResponseEntity<List<ClubDto>> getClubs();
+    ResponseEntity<Slice<ClubDto>> getClubs(@PathVariable Long id,
+                                            @RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size);
 
     @Operation(summary = "소모임 ID로 조회", description = "소모임 ID를 사용하여 소모임을 조회합니다.",
             responses = {

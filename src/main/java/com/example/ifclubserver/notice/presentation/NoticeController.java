@@ -7,10 +7,9 @@ import com.example.ifclubserver.notice.domain.dto.request.CreateNoticeRequest;
 import com.example.ifclubserver.notice.domain.dto.request.UpdateNoticeRequest;
 import com.example.ifclubserver.notice.domain.dto.response.CreateNoticeResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,9 +24,11 @@ public class NoticeController implements NoticeControllerDocs {
         return ResponseEntity.ok(createNoticeResponse);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<NoticeDto>> getNotices() {
-        List<NoticeDto> noticeDtos = noticeService.getNotices();
+    @GetMapping("/{id}")
+    public ResponseEntity<Slice<NoticeDto>> getNotices(@PathVariable Long id,
+                                                       @RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "10") int size) {
+        Slice<NoticeDto> noticeDtos= noticeService.getNotices(id,page,size);
         return ResponseEntity.ok(noticeDtos);
     }
 

@@ -1,18 +1,20 @@
 package com.example.ifclubserver.post.domain.entity;
 
+import com.example.ifclubserver.club.domain.entity.Club;
+import com.example.ifclubserver.common.entitiy.BaseEntity;
 import com.example.ifclubserver.member.domain.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post {
+@SuperBuilder
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,22 +26,18 @@ public class Post {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "club_id", nullable = false)
+    private Club club;
+
     @Builder
-    public Post(String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+    public Post(String title, String content, Member member) {
         this.title = title;
         this.content = content;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.member = member;
     }
 
@@ -47,6 +45,5 @@ public class Post {
         if (title.isBlank() && content.isBlank()) return;
         if (!title.isBlank()) this.title = title;
         if (!content.isBlank()) this.content = content;
-        this.updatedAt = LocalDateTime.now();
     }
 }

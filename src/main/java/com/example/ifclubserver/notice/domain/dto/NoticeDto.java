@@ -16,8 +16,6 @@ public record NoticeDto(Long id, String title, String content, String author, St
             .title(notice.getTitle())
             .content(notice.getContent())
             .author(notice.getAuthor())
-            .createdAt(notice.getCreatedAt())
-            .updatedAt(notice.getUpdatedAt())
             .build();
     }
 }

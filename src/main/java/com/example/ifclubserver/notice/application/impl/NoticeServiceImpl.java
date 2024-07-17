@@ -10,6 +10,8 @@ import com.example.ifclubserver.notice.domain.repository.NoticeRepository;
 import com.example.ifclubserver.notice.exception.NoticeErrorType;
 import com.example.ifclubserver.notice.exception.NoticeException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,11 +38,10 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public List<NoticeDto> getNotices() {
-        List<Notice> notices = noticeRepository.findAll();
-        return notices.stream()
-            .map(NoticeDto::from)
-            .collect(Collectors.toList());
+    public Slice<NoticeDto> getNotices(Long id, int page, int size) {
+        PageRequest pageRequest=PageRequest.of(page,size);
+        Slice<Notice> noticePage=noticeRepository.findById(id,pageRequest);
+        return noticePage.map(NoticeDto::from);
     }
 
     @Override

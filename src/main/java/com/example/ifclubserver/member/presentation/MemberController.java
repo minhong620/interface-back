@@ -8,15 +8,9 @@ import com.example.ifclubserver.member.domain.dto.request.UpdateMemberRequest;
 import com.example.ifclubserver.member.domain.dto.response.CreateMemberResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,8 +28,10 @@ public class MemberController implements MemberControllerDocs {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<MemberDto>> getMembers() {
-        List<MemberDto> memberDtos = memberServiceImpl.getMembers();
+    public ResponseEntity<Slice<MemberDto>> getMembers(@PathVariable Long id,
+                                                      @RequestParam(defaultValue = "0") int page,
+                                                      @RequestParam(defaultValue = "10") int size) {
+        Slice<MemberDto> memberDtos = memberServiceImpl.getMembers(id, page, size);
         return ResponseEntity.ok(memberDtos);
     }
 

@@ -1,31 +1,27 @@
 package com.example.ifclubserver.member.domain.entity;
 
+import com.example.ifclubserver.club.domain.entity.Club;
+import com.example.ifclubserver.common.entitiy.BaseEntity;
 import com.example.ifclubserver.member.domain.entity.constants.MemberRole;
 import com.example.ifclubserver.member.domain.entity.constants.MemberStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 
 @ToString(exclude = "password")
 @Entity
 @Setter
-@Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+@SuperBuilder
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +47,10 @@ public class Member {
 
     @Column(name = "role", nullable = false)
     private MemberRole role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "club_id", nullable = false)
+    private Club club;
 
     public void updateStudentId(String studentId) {
         this.studentId = studentId;
